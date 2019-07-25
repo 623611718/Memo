@@ -1,4 +1,4 @@
-package com.example.lz.Bran;
+package com.example.lz.Bean;
 
 /**
  * Created by Administrator on 2019/7/25.

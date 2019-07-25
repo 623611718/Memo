@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:orientation="horizontal">
     <LinearLayout
         android:id="@+id/content_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="8"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
         <TextView
             android:id="@+id/title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1111111"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textColor="#000000"
             android:layout_marginLeft="10dp"/>
         <TextView
@@ -22,17 +24,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11111111111111"
+            android:textSize="10sp"
             android:ellipsize="end"
-            android:maxEms="16"
+            android:maxEms="6"
             android:singleLine="true"
+            android:textColor="#666666"
             android:layout_marginLeft="20dp"/>
     </LinearLayout>
-    <ImageView
+    <TextView
         android:id="@+id/clock_img"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/ic_launcher_background"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="6"
+        android:layout_marginRight="10dp"
+        android:text="2018年02月04日  22:12"
         android:layout_gravity="center"
         android:gravity="center"/>
 </LinearLayout>

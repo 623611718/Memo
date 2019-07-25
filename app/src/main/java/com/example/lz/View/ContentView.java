@@ -18,7 +18,7 @@ import com.example.lz.Activity.R;
 public class ContentView extends LinearLayout {
     private TextView title_tv;
     private TextView content_tv;
-    private ImageView clock_img;
+    private TextView clock_img;
     private ClickListener clickListener;
 
     private LinearLayout content_layout;
@@ -27,7 +27,7 @@ public class ContentView extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.content_view, this);
         title_tv = (TextView) findViewById(R.id.title_tv);
         content_tv = (TextView) findViewById(R.id.content_tv);
-        clock_img = (ImageView) findViewById(R.id.clock_img);
+        clock_img = (TextView) findViewById(R.id.clock_img);
         clock_img.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

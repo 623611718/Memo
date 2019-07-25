@@ -8,13 +8,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
 import com.example.lz.Adapter.ContentAdapter;
-import com.example.lz.Bran.ContactsEntity;
-import com.example.lz.Bran.ContentBean;
+import com.example.lz.Bean.ContactsEntity;
 import com.example.lz.DB.BtDBHelper;
 import com.example.lz.DB.BtDbContactManager;
 import com.example.lz.Service.AlarmClockService;
@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements DrawerLayout.Draw
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();//隐藏掉整个ActionBar，包括下面的Tabs
+        //这里是在登录界面label上右上角添加三个点，里面可添加其他功能
+
         Intent intent = new Intent(this, AlarmClockService.class);
         startService(intent);
 
@@ -49,7 +52,13 @@ public class MainActivity extends AppCompatActivity implements DrawerLayout.Draw
         initActionBar();
         initListView();
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);//这里是调用menu文件夹中的main.xml，在登陆界面label右上角的三角里显示其他功能
+        return true;
+    }
     private void initDB() {
         btDBHelper = new BtDBHelper(this, "book1.db", null, 1);
         btDBHelper.getWritableDatabase();
@@ -59,9 +68,11 @@ public class MainActivity extends AppCompatActivity implements DrawerLayout.Draw
         contactsEntity.setTitle("111222");
         contactsEntity.setContent("1112221111111111111111111111111111111111111111111");
         contactsEntity.setNumber(0);
+        btDbContactManager.save(contactsEntity);
         contactsEntity.setTitle("111222");
         contactsEntity.setContent("1112221111111111111111111111111111111111111111111");
         contactsEntity.setNumber(0);
+        btDbContactManager.save(contactsEntity);
         contactsEntity.setTitle("111222");
         contactsEntity.setContent("1112221111111111111111111111111111111111111111111");
         contactsEntity.setNumber(1);
@@ -126,9 +137,9 @@ public class MainActivity extends AppCompatActivity implements DrawerLayout.Draw
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);        // 给左上角图标的左边加上一个返回的图标 。对应ActionBar.DISPLAY_HOME_AS_UP
         //考虑 ActionBar和DrawerLayout的联动
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-        mToggle.syncState();  //同步状态
-        mDrawerLayout.addDrawerListener(mToggle);//添加监听
+       // mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+     //   mToggle.syncState();  //同步状态
+      //  mDrawerLayout.addDrawerListener(mToggle);//添加监听
     }
 
     private void initView() {

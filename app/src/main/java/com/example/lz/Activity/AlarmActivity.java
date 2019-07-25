@@ -1,16 +1,14 @@
 package com.example.lz.Activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.lz.DB.BtDBHelper;
 import com.example.lz.DB.BtDbContactManager;
-import com.example.lz.Bran.ContactsEntity;
+import com.example.lz.Bean.ContactsEntity;
 
 import java.util.List;
 

@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 
-import com.example.lz.Bran.ContactsEntity;
+import com.example.lz.Bean.ContactsEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -2,19 +2,16 @@ package com.example.lz.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.example.lz.Activity.AlarmActivity;
 import com.example.lz.Activity.R;
-import com.example.lz.Bran.ContactsEntity;
-import com.example.lz.Bran.ContentBean;
+import com.example.lz.Bean.ContactsEntity;
 import com.example.lz.Utils.BasisTimesUtils;
 import com.example.lz.Utils.TimePickerDialog;
 import com.example.lz.View.ContentView;
