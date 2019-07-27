@@ -7,16 +7,17 @@
     android:orientation="vertical"
     tools:context="com.example.lz.Activity.AlarmActivity">
 
+    <com.example.lz.View.TitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.example.lz.View.TitleView>
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:ems="10" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="确定" />
 
 </LinearLayout>
