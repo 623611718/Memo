@@ -124,7 +124,7 @@ public class ContentAdapter extends ArrayAdapter {
      * 显示年月日选择器
      */
     private void showYearMonthDayPicker() {
-        BasisTimesUtils.showDatePickerDialog(mContext, BasisTimesUtils.THEME_HOLO_DARK, "请选择年月日", 2019, 1, 1, new BasisTimesUtils.OnDatePickerListener() {
+        BasisTimesUtils.showDatePickerDialog(mContext, BasisTimesUtils.THEME_HOLO_DARK, "请选择年月日", 2019, 7, 29, new BasisTimesUtils.OnDatePickerListener() {
 
             @Override
             public void onConfirm(int year, int month, int dayOfMonth) {

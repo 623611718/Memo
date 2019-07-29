@@ -27,6 +27,7 @@
             android:background="@color/grey"
             android:divider="@color/trans"
             android:dividerHeight="20dp"
+
             android:fadingEdge="none"></ListView>
     </LinearLayout>
 
@@ -37,5 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add"
         app:elevation="8dp" />
 </FrameLayout>

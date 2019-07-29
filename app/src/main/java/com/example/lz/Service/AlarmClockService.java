@@ -26,7 +26,7 @@ public class AlarmClockService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    private Date date;
+    private Date date,date_now;
     private int count, position,number;
     private String title,content,time;
     @Override
@@ -50,13 +50,14 @@ public class AlarmClockService extends Service {
                 calendar.getTime()).toString());
         try {
             Date calendarDate = calendar.getTime();
-            String time = DateFormat.format("yyyy-MM-dd kk:mm", calendarDate).toString();
+           // String time = DateFormat.format("yyyy-MM-dd kk:mm", calendarDate).toString();
             Log.i("test", "转换后的时间:" + time);
 // 新建一个SimpleDateFormat对象，时间的格式
             SimpleDateFormat format = new SimpleDateFormat(
                     "yyyy-MM-dd kk:mm");
             // format.parse()返回一个Date的数据类型
             date = format.parse(time);
+            date_now = format.parse(DateFormat.format("yyyy-MM-dd kk:mm", calendarDate).toString());
             //返回从1970-01-01 00:00:00到date表示时间的毫秒数
             Log.i("test", "date.getTime:" + date.getTime());
             // format.parse()返回一个Date的数据类型
@@ -68,9 +69,12 @@ public class AlarmClockService extends Service {
 
 
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 1 * 1000;
-        long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
-        Log.i("test", "SystemClock.elapsedRealtime():" + SystemClock.elapsedRealtime());
+       // int anHour = 1 * 1000;
+       // long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
+        long triggerAtTime = Math.abs(date.getTime()-date_now.getTime());
+        Log.i("test","当前时间:"+date_now.getTime());
+        Log.i("test","选择的时间:"+date.getTime());
+        Log.i("test", "间隔时间:" + triggerAtTime);
         Intent i = new Intent(this, ClockActivity.class);
         i.putExtra("count",count);
         i.putExtra("position",String.valueOf(position));
@@ -80,7 +84,7 @@ public class AlarmClockService extends Service {
         i.putExtra("number",String.valueOf(number));
         i.putExtra("time",time);
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
-        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);//1min后返回执行
+        manager.set(AlarmManager.RTC, date.getTime(), pi);//1min后返回执行
         return super.onStartCommand(intent, flags, startId);
     }
 
