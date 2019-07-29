@@ -130,12 +130,12 @@ public class BasisTimesUtils {
     /**
      * 当前的时间(设备)
      *
-     * @return yyyy-MM-dd HH:mm:ss
+     * @return yyyy-MM-dd HH:mm
      */
     public static String getDeviceTime() {
         String date = "";
         try {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             date = df.format(new Date());
         } catch (Exception e) {
             e.printStackTrace();

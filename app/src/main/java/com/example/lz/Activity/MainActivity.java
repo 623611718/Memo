@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();//隐藏掉整个ActionBar，包括下面的Tabs
         changeStatusBarTextColor(true);
-        Intent intent = new Intent(this, AlarmClockService.class);
+       /* Intent intent = new Intent(this, AlarmClockService.class);
         startService(intent);
-        initTime();
+        initTime();*/
        // showTimerPicker();
         initScreenDp();     //获取屏幕dp
         initDB();             //初始化数据库

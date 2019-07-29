@@ -3,6 +3,7 @@ package com.example.lz.Activity;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import com.example.lz.DB.BtDBHelper;
 import com.example.lz.DB.BtDbContactManager;
 import com.example.lz.Bean.ContactsEntity;
+import com.example.lz.Dialog.CommomDialog;
 import com.example.lz.Utils.BasisTimesUtils;
 import com.example.lz.View.TitleView;
 
@@ -26,6 +28,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     private TitleView titleView;
     private boolean isNew;
 
+    private CommomDialog commomDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +50,11 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     }
     private void initEdit() {
         isNew = getIntent().getBooleanExtra("isNew", false);
+        Log.i("test","isNew:"+isNew);
         if (isNew == true) {
             count = Integer.parseInt(getIntent().getStringExtra("count"));
         } else {
-            count = Integer.parseInt(getIntent().getStringExtra("count"));
+            //count = Integer.parseInt(getIntent().getStringExtra("count"));
             position = Integer.parseInt(getIntent().getStringExtra("position"));
             title = getIntent().getStringExtra("title");
             content = getIntent().getStringExtra("content");

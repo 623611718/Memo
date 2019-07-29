@@ -15,6 +15,7 @@ import com.example.lz.Activity.AlarmActivity;
 import com.example.lz.Activity.R;
 import com.example.lz.Bean.ContactsEntity;
 import com.example.lz.DB.BtDbContactManager;
+import com.example.lz.Service.AlarmClockService;
 import com.example.lz.Utils.BasisTimesUtils;
 import com.example.lz.Utils.TimePickerDialog;
 import com.example.lz.View.ContentView;
@@ -27,14 +28,14 @@ import java.util.List;
  */
 
 public class ContentAdapter extends ArrayAdapter {
-    private Context context;
+    private Context mContext;
     private List<ContactsEntity> list;
     private final  int resourceId;
     private TimePickerDialog timePickerDialog;
     private int position1;
     public ContentAdapter(@NonNull Context context, int resource, List<ContactsEntity> list) {
         super(context, resource, list);
-        this.context = context;
+        this.mContext = context;
         this.list = list;
         this.resourceId = resource;
         timePickerDialog = new TimePickerDialog(context);
@@ -96,7 +97,7 @@ public class ContentAdapter extends ArrayAdapter {
                         showYearMonthDayPicker();
                         break;
                     case R.id.content_layout:
-                        Intent intent = new Intent(context, AlarmActivity.class);
+                        Intent intent = new Intent(mContext, AlarmActivity.class);
                         title = list.get(position).getTitle();
                         content = list.get(position).getContent();
                         number = list.get(position).getNumber();
@@ -107,7 +108,7 @@ public class ContentAdapter extends ArrayAdapter {
                         intent.putExtra("content",String.valueOf(content));
                         intent.putExtra("number",String.valueOf(number));
                         intent.putExtra("time",list.get(position).getTime());
-                        context.startActivity(intent);
+                        mContext.startActivity(intent);
                         break;
                 }
             }
@@ -123,7 +124,7 @@ public class ContentAdapter extends ArrayAdapter {
      * 显示年月日选择器
      */
     private void showYearMonthDayPicker() {
-        BasisTimesUtils.showDatePickerDialog(context, BasisTimesUtils.THEME_HOLO_DARK, "请选择年月日", 2019, 1, 1, new BasisTimesUtils.OnDatePickerListener() {
+        BasisTimesUtils.showDatePickerDialog(mContext, BasisTimesUtils.THEME_HOLO_DARK, "请选择年月日", 2019, 1, 1, new BasisTimesUtils.OnDatePickerListener() {
 
             @Override
             public void onConfirm(int year, int month, int dayOfMonth) {
@@ -144,14 +145,30 @@ public class ContentAdapter extends ArrayAdapter {
      * 时间选择
      */
     private void showTimerPicker() {
-        BasisTimesUtils.showTimerPickerDialog(context, true, "请选择时间", 21, 33, true, new BasisTimesUtils.OnTimerPickerListener() {
+        BasisTimesUtils.showTimerPickerDialog(mContext, true, "请选择时间", 21, 33, true, new BasisTimesUtils.OnTimerPickerListener() {
             @Override
             public void onConfirm(int hourOfDay, int minute) {
                 Log.i("test", hourOfDay + ":" + minute);
                 time = time+hourOfDay + ":" + minute;
                 list.get(position1).setTime(time);
                 refresh(list);
+                BtDbContactManager btDbContactManager = BtDbContactManager.getInstance();
+                btDbContactManager.init(mContext);
+                btDbContactManager.save(list.get(position1));
                 Log.i("test","选择的时间:"+time);
+
+                Intent intent = new Intent(mContext, AlarmClockService.class);
+                title = list.get(position1).getTitle();
+                content = list.get(position1).getContent();
+                number = list.get(position1).getNumber();
+                intent.putExtra("count",String.valueOf(getCount()));
+                intent.putExtra("position",String.valueOf(position1));
+                intent.putExtra("isNew",false);
+                intent.putExtra("title",String.valueOf(title));
+                intent.putExtra("content",String.valueOf(content));
+                intent.putExtra("number",String.valueOf(number));
+                intent.putExtra("time",list.get(position1).getTime());
+                mContext.startService(intent);
             }
 
             @Override
