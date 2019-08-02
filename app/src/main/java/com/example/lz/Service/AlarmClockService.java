@@ -21,8 +21,14 @@ public class AlarmClockService extends Service {
     }
 
     @Override
+    public void onCreate(){
+        super.onCreate();
+        Log.i("service","onCreate");
+    }
+    @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
+        Log.i("service","onBind");
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -31,6 +37,7 @@ public class AlarmClockService extends Service {
     private String title,content,time;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i("service","onStartCommand");
         count = Integer.parseInt(intent.getStringExtra("count"));
         position = Integer.parseInt(intent.getStringExtra("position"));
         title = intent.getStringExtra("title");
@@ -83,9 +90,15 @@ public class AlarmClockService extends Service {
         i.putExtra("content",String.valueOf(content));
         i.putExtra("number",String.valueOf(number));
         i.putExtra("time",time);
-        PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
+        Log.i("service","number:"+number);
+        PendingIntent pi = PendingIntent.getActivity(this, number, i, PendingIntent.FLAG_UPDATE_CURRENT);
         manager.set(AlarmManager.RTC, date.getTime(), pi);//1min后返回执行
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.i("service","onDestroy");
+    }
 }

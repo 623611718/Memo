@@ -21,7 +21,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:gravity="left"
-        android:text="退出"
+        android:text="@string/back"
         android:textColor="#333333"
         android:textSize="20sp" />
 

@@ -23,12 +23,13 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     private ContactsEntity contactsEntity;
     private EditText editText;
     private BtDbContactManager btDbContactManager;
-    private int count, position,number;
-    private String title,content,time;
+    private int count, position, number;
+    private String title, content, time;
     private TitleView titleView;
     private boolean isNew;
 
     private CommomDialog commomDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         initDB();
         initEdit();
     }
+
     private void changeStatusBarTextColor(boolean isBlack) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
             if (isBlack) {
@@ -48,9 +50,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
+
     private void initEdit() {
         isNew = getIntent().getBooleanExtra("isNew", false);
-        Log.i("test","isNew:"+isNew);
+        Log.i("test", "isNew:" + isNew);
         if (isNew == true) {
             count = Integer.parseInt(getIntent().getStringExtra("count"));
         } else {
@@ -60,7 +63,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             content = getIntent().getStringExtra("content");
             number = Integer.parseInt(getIntent().getStringExtra("number"));
             time = getIntent().getStringExtra("time");
-          //  List<ContactsEntity> list = btDbContactManager.queryAll(position);
+            //  List<ContactsEntity> list = btDbContactManager.queryAll(position);
             editText.setText(content);
 
         }
@@ -82,31 +85,41 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         titleView.setCustomOnClickListener(new TitleView.ClickListener() {
             @Override
             public void onClick(View v) {
-                String content = editText.getText().toString();
-                String title;
-
-                //输入内容大于0,进行保存
-                if (content.length() > 0) {
-                    if (content.length() >= 6) {
-                        title = content.substring(0, 6);
-                    } else {
-                        title = content;
-                    }
-                    contactsEntity.setTitle(title);
-                    contactsEntity.setContent(content);
-                    if (isNew == true) {                               //如果是新建,按照count进行保存,如果不是则按照position进行更新
-                        contactsEntity.setNumber(count);
-                        contactsEntity.setTime( BasisTimesUtils.getDeviceTime());
-                    } else {
-                        contactsEntity.setNumber(number);
-                        contactsEntity.setTime(time);
-                    }
-                    btDbContactManager.save(contactsEntity);
+                switch (v.getId()) {
+                    case R.id.back_bt:
+                        backOfsave();
+                        finish();
+                        break;
+                    case R.id.title_tv:
+                        backOfsave();
+                        finish();
+                        break;
                 }
-
-                finish();
             }
         });
+    }
+
+    public void backOfsave() {
+        String content = editText.getText().toString();
+        String title;
+        //输入内容大于0,进行保存
+        if (content.length() > 0) {
+            if (content.length() >= 6) {
+                title = content.substring(0, 6);
+            } else {
+                title = content;
+            }
+            contactsEntity.setTitle(title);
+            contactsEntity.setContent(content);
+            if (isNew == true) {                               //如果是新建,按照count进行保存,如果不是则按照position进行更新
+                contactsEntity.setNumber(count);
+                contactsEntity.setTime(BasisTimesUtils.getDeviceTime());
+            } else {
+                contactsEntity.setNumber(number);
+                contactsEntity.setTime(time);
+            }
+            btDbContactManager.save(contactsEntity);
+        }
     }
 
 

@@ -166,10 +166,47 @@ public class BtDbContactManager implements BtManagerInterface<ContactsEntity> {
         }
         return null;
     }
+    @Override
+    public List<ContactsEntity> queryAll( ) { //按照查找表中所有数据
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = getDB();
+
+            //1.使用这种query方法%号前不能加' ;
+            //            Cursor c_test = mDatabase.query(tab_name, new String[]{tab_field02}, tab_field02+"  LIKE ? ",
+            //                    new String[] { "%" + str[0] + "%" }, null, null, null);
+            //2.使用这种query方法%号前必须加'  ; 注意空格
+            //  Cursor  c_test=mDatabase.query(tab_name, new String[]{tab_field02},tab_field02+"  like '%" + str[0] + "%'", null, null, null, null);
+            //多条件查询  BtDbConfiguration.ContactsEntityfig.FULLNAME + " LIKE" + " '%" + fullname + "%' "
+            //                + " OR " +  BtDbConfiguration.ContactsEntityfig.NUMBER+ " LIKE" + " '%" + number + "%'";/
+            cursor = db.query(tableName,
+                    ORDER_COLUMNS,
+                    null,
+                   null,
+                    null, null, null);
+            if (cursor.getCount() > 0) {
+                List<ContactsEntity> orderList = new ArrayList<ContactsEntity>(cursor.getCount());
+                while (cursor.moveToNext()) {
+                    ContactsEntity entity = parseContact(cursor);
+                    orderList.add(entity);
+                }
+                return orderList;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "" + e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+
+        }
+        return null;
+    }
 
 
     @Override
-    public List<ContactsEntity> queryAll( int number) { //查询单个人名
+    public List<ContactsEntity> queryAll( int number) { //按照 唯一标识符number查找
         SQLiteDatabase db = null;
         Cursor cursor = null;
         try {
@@ -250,12 +287,12 @@ public class BtDbContactManager implements BtManagerInterface<ContactsEntity> {
 //    String sql = "delete from user where id="1"；
 //            db.execSQL(sql);
     @Override
-    public int delete(Class table) {
+    public int delete(int number) {
         SQLiteDatabase db = null;
         int result = 0;
         try {
             db = getDB();
-            result = db.delete(tableName, "btorder=?", new String[]{"1"});
+            result = db.delete(tableName, "number=?", new String[]{String.valueOf(number)});
         } catch (Exception e) {
             e.printStackTrace();
         }

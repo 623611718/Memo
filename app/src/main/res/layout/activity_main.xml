@@ -1,43 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey"
-    android:clipToPadding="true"
-    tools:context="com.example.lz.Activity.MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/grey"
+        android:clipToPadding="true"
+        tools:context="com.example.lz.Activity.MainActivity">
 
-        <com.example.lz.View.TitleView
+        <LinearLayout
+            android:id="@+id/focusble_layout"
             android:layout_width="match_parent"
-            android:layout_height="66dp"></com.example.lz.View.TitleView>
-
-
-        <ListView
-            android:id="@+id/listvew_main"
-            android:layout_width="326dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:background="@color/grey"
-            android:divider="@color/trans"
-            android:dividerHeight="20dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
-            android:fadingEdge="none"></ListView>
-    </LinearLayout>
+            <com.example.lz.View.TitleView
+                android:id="@+id/titleview"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"></com.example.lz.View.TitleView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/search_et"
+                    android:layout_width="326dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:singleLine="true"
+                    android:imeOptions="actionSearch"
+                    android:drawableLeft="@android:drawable/ic_menu_search"
+                    android:hint="@string/searchNotes"
+                    android:background="@drawable/shape_listview"/>
+            </LinearLayout>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@android:drawable/ic_input_add"
-        app:elevation="8dp" />
-</FrameLayout>
+
+            <ListView
+                android:id="@+id/listvew_main"
+                android:layout_width="326dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@color/grey"
+                android:divider="@color/trans"
+                android:dividerHeight="20dp"
+                android:fadingEdge="none"
+                android:scrollbars="none"></ListView>
+        </LinearLayout>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@android:drawable/ic_input_add"
+           />
+
+        <com.example.lz.View.BottomView
+            android:id="@+id/bottomview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone"></com.example.lz.View.BottomView>
+    </FrameLayout>
+    <fragment
+        class="com.example.lz.Fragment.SlidingMenu_Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start" />
+</android.support.v4.widget.DrawerLayout>

@@ -11,6 +11,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="没错,我就是策划菜单!" />
+        android:text="没错,我就是侧滑菜单!" />
 
 </FrameLayout>

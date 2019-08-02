@@ -13,6 +13,7 @@ public  interface BtManagerInterface<T>  {
     List<T> queryAll(T table); //根据类名（表名）查找所有的数据
     List<T> queryAll(int order); //通过查找序号的方式查找所有的数据
     T queryById(Class<T> table, Object id);//通过id查找对应的数据
-    int delete(Class table); //清空对应表名中的所有数据
+    int delete(int number); //清空对应表名中的所有数据
+    List<T> queryAll(); //查找表中所有数据
 
 }
